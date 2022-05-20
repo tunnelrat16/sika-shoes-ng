@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import { ShoeService } from "../shoe.service";
 import {Product} from "../product.model"
 
 @Component({
@@ -9,7 +10,15 @@ import {Product} from "../product.model"
 export class ProductsPageComponent implements OnInit {
   products: Product[] = []
   error = false
-  ngOnInit() {
-    // Get products here
+  constructor(
+    private shoeService : ShoeService) {}
+
+  ngOnInit(): void {
+    this.getProducts();
+  }
+
+  getProducts(): void {
+    this.shoeService.getProducts().subscribe(response => this.products = response.products);
   }
 }
+
